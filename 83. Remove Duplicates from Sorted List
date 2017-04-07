@@ -1,0 +1,39 @@
+Given a sorted linked list, delete all duplicates such that each element appear only once.
+
+For example,
+Given 1->1->2, return 1->2.
+Given 1->1->2->3->3, return 1->2->3.
+
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        ListNode headNode = new ListNode(0);
+        headNode.next = head;
+        if(headNode.next == null) return null;
+        ListNode aNode = new ListNode(0);
+        aNode.next = head;
+        ListNode bNode = new ListNode(0);
+        bNode.next = head;
+
+        while(bNode.next != null){
+        	if(aNode.next.val != bNode.next.val){
+        		aNode.next.next = bNode.next;
+        		aNode.next = bNode.next;
+        	}
+
+			bNode.next = bNode.next.next;
+        }
+
+        aNode.next.next = bNode.next;
+
+        return headNode.next;
+    }
+}

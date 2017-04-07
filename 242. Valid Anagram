@@ -1,0 +1,47 @@
+Given two strings s and t, write a function to determine if t is an anagram of s.
+
+For example,
+s = "anagram", t = "nagaram", return true.
+s = "rat", t = "car", return false.
+
+Note:
+You may assume the string contains only lowercase alphabets.
+
+Follow up:
+What if the inputs contain unicode characters? How would you adapt your solution to such case?
+
+
+public class Solution {
+    public boolean isAnagram(String s, String t) {
+        int sLength = s.length();
+        int tLength = t.length();
+        if(sLength!=tLength) return false;
+        HashMap<String,Integer> map = new HashMap<String,Integer>();
+        for(int i = 0;i<sLength;i++){
+            String sc = s.charAt(i)+"";
+            if(map.containsKey(sc)){
+                map.put(sc,map.get(sc)+1);
+            }else{
+                map.put(sc,1);
+            }
+        }
+        
+        for(int i = 0;i<tLength;i++){
+            String tc = t.charAt(i)+"";
+            if(map.containsKey(tc)){
+                int count = map.get(tc);
+                count--;
+                if(count == 0){
+                    map.remove(tc);
+                }else{
+                    map.put(tc,count);
+                }
+            }else{
+                return false;
+            }
+        }
+        
+        
+        return true;
+    }
+}

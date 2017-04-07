@@ -1,0 +1,77 @@
+Given two binary strings, return their sum (also a binary string).
+
+For example,
+a = "11"
+b = "1"
+Return "100".
+
+
+ppublic class Solution {
+    public String addBinary(String a, String b) {
+        if(a.equals("")&&b.equals("")) return "0";
+    	if(a.equals("")) return b;
+    	if(b.equals("")) return a;
+
+        int aLength = a.length();
+        int bLength = b.length();
+        int maxLength = 0;
+        
+        if(aLength>bLength){
+            for(int i=0;i<aLength - bLength;i++){
+                b = '0'+b;
+            }
+            maxLength = aLength;
+        }else if(aLength<bLength){
+            for(int i=0;i<bLength - aLength;i++){
+                a = '0'+ a;
+            } 
+            maxLength = bLength;
+        }else{
+            maxLength = aLength;
+        }
+
+        String result = "";
+        boolean isCarry = false;
+        int i = 1;
+        while(maxLength -i>=0){
+        	char ca = a.charAt(maxLength -i);
+        	char cb = b.charAt(maxLength-i);
+
+        	char resultC = ' ';
+
+        	if(ca == cb){
+        		if(ca == '0'){ //0,0
+        			if(isCarry){
+        				resultC = '1';
+        			}else{
+						resultC = '0';
+        			}
+        			isCarry = false;
+        		}else{  //1,1
+        			if(isCarry){
+        				resultC = '1';
+        			}else{
+        				resultC = '0';
+        			}
+        			isCarry = true;
+        		}
+        	}else{
+        		if(isCarry){ // 0,1
+        			resultC = '0';
+        			isCarry = true;
+        		}else{
+					resultC = '1';
+        			isCarry = false;
+        		}
+        	}
+
+        	result=resultC+result;
+        	i++;
+        }
+        
+        if(isCarry){
+            result='1'+result;
+        }
+        return result;
+    }
+}

@@ -1,0 +1,43 @@
+Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
+
+
+public class Solution {
+    public boolean isValid(String s) {
+        int length = s.length();
+        if(length == 0) return true;
+        if(length%2 != 0) return false;
+        String result = "";
+        for(int i=0;i<length-1;i++){
+            char leftC = s.charAt(i);
+            char rightC = s.charAt(i+1);
+            // if(s.charAt(i) == s.charAt(i+1)){
+            //   result = s.substring(0, i) + s.substring(i + 2);
+            //   return isValid(result);
+            // }
+            switch(leftC){
+                case '(':
+                    if(rightC == ')'){
+                        result = s.substring(0, i) + s.substring(i + 2);
+                        return isValid(result);
+                      }
+                    break;
+                case '[':
+                    if(rightC == ']'){
+                        result = s.substring(0, i) + s.substring(i + 2);
+                        return isValid(result);
+                      }
+                    break;
+                case '{':
+                    if(rightC == '}'){
+                        result = s.substring(0, i) + s.substring(i + 2);
+                        return isValid(result);
+                      }
+                    break;
+            }
+        }
+        if(s.length() == 0) return true;
+        return false;
+    }
+}

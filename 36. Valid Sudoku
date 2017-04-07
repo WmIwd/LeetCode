@@ -1,0 +1,68 @@
+
+Determine if a Sudoku is valid, according to: Sudoku Puzzles - The Rules.
+
+The Sudoku board could be partially filled, where empty cells are filled with the character '.'.
+
+
+A partially filled sudoku which is valid.
+
+Note:
+A valid Sudoku board (partially filled) is not necessarily solvable. Only the filled cells need to be validated.
+
+
+public class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        //9列的数组
+        String[] columnArr = new String[9];
+        //9个boxes数组
+        String[] boxesArr = new String[9];
+        for(int i =0;i<9;i++){
+            columnArr[i]=""; 
+            boxesArr[i] ="";
+        }
+        for(int i=0;i<9;i++){
+        	String line = "";
+        	for(int j =0;j<9;j++){
+        		char c = board[i][j];
+        		if(c!='.'){
+        		    //判断行
+        			if(line.contains(c+"")) return false;
+        			line += c;
+                    //判断列
+        			if(columnArr[j].contains(c+"")) return false;
+        			columnArr[j] += c;
+        			//判断boxes
+        			int index = 8;
+        			if(i<3){
+        			    if(j<3){
+        			        index = 0;
+        			    }else if(j<6){
+        			        index = 1;
+        			    }else{
+        			        index = 2;
+        			    }
+        			}else if(i<6){
+        		        if(j<3){
+        			        index = 3;
+        			    }else if(j<6){
+        			        index = 4;
+        			    }else{
+        			        index = 5;
+        			    } 
+        			}else{
+                        if(j<3){
+                            index = 6;
+        			    }else if(j<6){
+        			        index = 7;
+        			    }else{
+        			        index = 8;
+        			    }  
+        			}
+        			if(boxesArr[index].contains(c+"")) return false;
+        			boxesArr[index] += c;
+        		}
+        	}
+        }
+        return true;
+    }
+}

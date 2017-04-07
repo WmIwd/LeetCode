@@ -1,0 +1,29 @@
+You are climbing a stair case. It takes n steps to reach to the top.
+
+Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
+
+
+public class Solution {
+    private HashMap<Integer , Integer> map = new HashMap<Integer , Integer>();
+    public int climbStairs(int n) {
+        if(n == 1) {
+            map.put(1,1);
+            return 1;
+        }
+        if(n == 2) {
+            map.put(2,2);
+            return 2;
+        }
+        if(map.get(n-1)==null && map.get(n-2)==null){
+           map.put(n-1,climbStairs(n-1));
+           map.put(n-2,climbStairs(n-2));
+        }else if(map.get(n-1)!=null &&map.get(n-2)==null){
+            map.put(n-2,climbStairs(n-2));
+        }else if(map.get(n-1)==null &&map.get(n-2)!=null){
+            map.put(n-1,climbStairs(n-2));
+        }
+        
+        return map.get(n-1)+map.get(n-2);
+    
+    }
+}
